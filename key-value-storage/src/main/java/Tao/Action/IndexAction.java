@@ -2,11 +2,14 @@ package Tao.Action;
 
 import java.util.Date;
 import java.util.HashMap;
-import Tao.Model.User;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import Tao.Model.User;
 
 
 @RestController
@@ -16,19 +19,22 @@ public class IndexAction {
 	@RequestMapping
 	public String index(){
 		
-		return "hello world";
+		return "Hello world!";
 	}
-	@RequestMapping(value="/hello")
+	@RequestMapping(value="/hello",method=RequestMethod.GET)
 	public String hello(){
-		return "hello world";
+		return "Hello world!";
 	}
-	@RequestMapping(value="/echo")
-	public String echo(@RequestParam String msg){
+	@RequestMapping(value="/echo",method=RequestMethod.GET)
+	public String echo(@RequestParam(value="msg",required=false) String msg){
+		if(msg==null||msg==""){
+			return "";
+		}
 		String res=msg;
 		return res;
 		
 	}
-	@RequestMapping(value="/get")
+	@RequestMapping(value="/get",method=RequestMethod.GET)
 	public HashMap<String, Object> get(@RequestParam String name){
 		HashMap<String, Object> map=new HashMap<String,Object>();
 		map.put("title", "hello world");
